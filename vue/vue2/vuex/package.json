@@ -1,0 +1,29 @@
+{
+  "name": "vuerouter",
+  "version": "1.0.0",
+  "description": "<!--\r  * @Author: mengbing mengbingg@outlook.com\r  * @Date: 2022-08-02 18:11:19\r  * @LastEditors: mengbing mengbingg@outlook.com\r  * @LastEditTime: 2022-08-02 18:12:15\r  * @Descripttion: 项目说明\r -->\r #### 手写vue-router",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.6.11",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "css-loader": "^3.6.0",
+    "html-webpack-plugin": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

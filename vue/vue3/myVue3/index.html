@@ -1,0 +1,40 @@
+<!--
+ * @Author: mengbing mengbingg@outlook.com
+ * @Date: 2022-08-05 17:20:29
+ * @LastEditors: mengbing mengbingg@outlook.com
+ * @LastEditTime: 2022-08-21 17:30:01
+ * @Descripttion: 功能测试
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app">
+            <h1>{{msg}}</h1>
+        </div>
+    </body>
+    <script src="./MVue3.js"></script>
+    <!-- <script src="https://unpkg.com/vue@3"></script> -->
+    <script>
+        const { createApp } = Vue
+        const app = createApp({
+            data() {
+                return {
+                    msg: 'hello',
+                }
+            },
+            setup() {
+                const state = {
+                    msg: '你好',
+                }
+                return state
+            },
+        })
+        app.mount('#app')
+    </script>
+</html>

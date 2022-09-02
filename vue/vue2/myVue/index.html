@@ -1,0 +1,48 @@
+<!--
+ * @Author: mengbing mengbingg@outlook.com
+ * @Date: 2022-08-05 17:20:29
+ * @LastEditors: mengbing mengbingg@outlook.com
+ * @LastEditTime: 2022-08-06 16:18:32
+ * @Descripttion: 功能测试
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app">
+            {{counter}}
+            <h1>{{counter}}</h1>
+            <span m-html="html"></span>
+
+            <ul>
+                <li><span>姓名：</span><span>{{person.name}}</span></li>
+                <li><span>年龄：</span><span>{{person.age}}</span></li>
+            </ul>
+        </div>
+    </body>
+    <script src="./MVue.js"></script>
+    <script>
+        const app = new MVue({
+            el: '#app',
+            data: {
+                html: '我是HTML',
+                counter: 1,
+                input: 'message 哈哈',
+                person: {
+                    name: '小红',
+                    age: 13,
+                },
+            },
+        })
+
+        setTimeout(() => {
+            app.counter++
+            app.html = '我是新的HTML'
+        }, 1000)
+    </script>
+</html>

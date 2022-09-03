@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-03 19:54:01
+ * @LastEditTime: 2022-09-03 22:18:00
  * @Descripttion: 
 -->
 # 创建项目
@@ -79,11 +79,12 @@ npx create-react-app xxx
     - HOC是纯函数，没有副作用（不能破坏传入组件的特性，只通过组合形成新组件）
 
 ### es6装饰器
-### 概念：
+> 测试文件：src/classDecorator.jsx
+##### 概念：
 1. 作用：是一个**编译时执行**的函数，用来注释、修改类和类方法（不能用于函数，因为函数存在变量提升）
 2. 分类：类装饰器、类方法装饰器
 
-### react中如何使用装饰器
+##### react中如何使用装饰器
 1. vscode中报错：可修改vscode配置文件中将tsconfig启动Experimental Decorators（将选项 Implicit Project Config: Experimental Decorators勾上）
 2. create-react-app默认是不支持装饰器模式的，需要对项目做一些配置：
     - 在项目根目录中终端下使用npm run eject，这条命令主要是将我们的配置项做一个反向输出，暴露出隐藏的 webpack 配置项
@@ -103,14 +104,14 @@ npx create-react-app xxx
     }
     ```
 
-### 装饰器分类
-##### 类装饰器
+##### 装饰器分类
+###### 类装饰器
 1. 参数：
     - target：类的构造函数
 2. 传递额外的参数：装饰器在使用时是不能传入参数的，如果想要在使用装饰器是传入参数，必须在装饰器外面再封装一层函数
 3. 返回值：装饰之后类的构造函数（一个新的构造函数）
 
-##### 类方法装饰器
+###### 类方法装饰器
 1. 参数：
     - target：
         - 装饰方法是实例方法时：类的原型对象
@@ -118,6 +119,20 @@ npx create-react-app xxx
     - methodName：方法名称
     - descriptor：当前方法的属性描述符
 2. 返回值：装饰之后的方法属性描述符
+
+
+### rc-form表单收集器
+> 测试文件：src/rcFormTest.jsx
+##### rc-form库
+1. 作用：用于收集表单数据，设置表单元素的值，获取表单元素的值，校验表单数据等
+
+##### 自定义rc-form
+1. 定义高阶组件createForm，并为组件添加一个名为form的props，则组件中则可以通过this.props.form.xxx调用方法
+2. form属性中分别定义四个函数：
+    - getFieldDecorator：为表单组件注入field
+    - setFieldsValue：为表单的fields设置值
+    - getFieldsValue：获取表单的fields值
+    - validateFields：校验表单数据
 
 ### 拓展
 ##### 快捷键

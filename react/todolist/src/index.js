@@ -2,16 +2,11 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-07 11:28:01
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-07 14:31:55
+ * @LastEditTime: 2022-09-07 15:37:19
  * @Descripttion:
  */
 import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './Proxy'
+import ReactDOM from 'react-dom'
+import App from './ProxyTest'
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+ReactDOM.render(<App></App>, document.getElementById('root'))

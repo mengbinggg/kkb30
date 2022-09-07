@@ -2,18 +2,21 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-07 14:30:28
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-07 14:38:41
+ * @LastEditTime: 2022-09-07 15:57:34
  * @Descripttion:
  */
 import React, { Component } from 'react'
 import axios from 'axios'
-export default class Proxy extends Component {
+
+export default class ProxyTest extends Component {
   getStudentInfo = () => {
-    axios.get('http://localhost:5000/students').then((res) => console.log(res))
+    axios.get('http://localhost:3000/api1/students').then((res) => console.log(res))
   }
+
   getCarInfo = () => {
-    axios.get('http://localhost:5001/cars').then((res) => console.log(res))
+    axios.get('http://localhost:3000/api2/cars').then((res) => console.log(res))
   }
+
   render() {
     return (
       <div>

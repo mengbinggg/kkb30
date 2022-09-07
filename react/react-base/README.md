@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-03 22:18:00
+ * @LastEditTime: 2022-09-07 11:20:59
  * @Descripttion: 
 -->
 # 创建项目
@@ -16,6 +16,52 @@ npx create-react-app xxx
 2. 作用：先判断当前项目下是否存在要执行的命令，存在则执行；不存在，则直接从npm官方库中远程拉取包（临时存储），并执行命令
 
 # 基本操作
+### 组件三大核心属性
+##### state
+1. 作用：定义组件状态
+2. 注意：
+    - 只能通过setState的形式更改，属性更改时是**合并**而不是直接替换
+
+##### props
+1. 作用：通过标签属性项组件内部传递参数
+2. 批量传递参数：
+    ```
+    <Person {...obj}></Person>
+    ```
+3. 参数进行限制：
+    - propTypes：限制参数类型/是否必传（如：PropTypes.number.isRequired）
+    - defaultProp：设置参数默认值
+4. 函数式组件中使用props：通过函数参数接受
+
+##### ref
+1. 作用：获取组件元素
+2. 形式：
+    - 字符串形式（已过时）：
+        ```
+        <input ref="input"/>
+        // 获取
+        this.refs.input.value
+        ```
+    - 回调函数形式：
+        ```
+        <input ref="(c) => {this.input = c}"/>
+        // 获取
+        this.input.value
+        ```
+    - createRef形式：
+        ```
+        // 创建一个ref容器，用于存放绑定的元素
+        const myInput = React.createRef()
+        <input ref="myInput"/>
+        // 获取
+        this.myInput.current.value
+        ```
+
+### 受控组件 VS 非受控组件
+> 测试文件：src/controlComp.jsx
+1. 受控组件（推荐）：表单元素的数据由React控制
+2. 非受控组件：表单元素的数据由DOM节点处理
+
 ### 组件传值
 ##### 父子组件传参（props）
 > 测试文件：src/propsTest.jsx
@@ -48,6 +94,63 @@ npx create-react-app xxx
 
 ### 生命周期
 > 测试文件：src/lifeCycleTest.jsx
+
+##### 新旧对比
+###### 旧的生命周期
+1. 挂载阶段
+    - constructor
+    - componentWillMount
+    - render
+    - componentDidMount
+2. 更新阶段
+    - 调用setState()更新：
+        - shouldComponentUpdate
+        - componentWillUpdate
+        - render
+        - componentDidUpdate
+    - 调用forceUpdate()更新：
+        - componentWillUpdate
+        - render
+        - componentDidUpdate
+    - 父组件更新：
+        - componentWillReceiveProps：组件**再次接收**props时调用
+        - shouldComponentUpdate
+        - componentWillUpdate
+        - render
+        - componentDidUpdate
+3. 卸载阶段
+    - componentWillUnmount
+
+###### 新的生命周期
+1. 挂载阶段
+    - constructor
+    - getDerivedStateFromProps
+    - render
+    - componentDidMount
+2. 更新阶段
+    - 调用setState()更新 / 父组件更新：
+        - getDerivedStateFromProps
+        - shouldComponentUpdate
+        - getSnapshotBeforeUpdate
+        - render
+        - componentDidUpdate
+    - 调用forceUpdate()更新：
+        - getDerivedStateFromProps
+        - getSnapshotBeforeUpdate
+        - render
+        - componentDidUpdate
+3. 卸载阶段
+    - componentWillUnmount
+
+###### 对比
+1. 删除3个生命周期：
+    - componentWillMount
+    - componentWillReceiveProps
+    - componentWillUpdate
+2. 新增2个生命周期：
+    - getDerivedStateFromProps
+    - getSnapshotBeforeUpdate
+
 ##### 常用生命周期
 ###### render()
 1. class组件中必须实现的方法，要求是纯函数
@@ -70,6 +173,16 @@ npx create-react-app xxx
 ###### componentWillUnmount()
 1. 会在组件卸载及销毁之前直接调用
 2. 不应调用 setState()，因为该组件一旦被卸载了将永远不会重新渲染，因此此时调用setState()没有意义
+
+##### 不常用生命周期
+###### getDerivedStateFromProps（从props获取派生状态）
+1. render 方法之前调用，挂载/更新时都会被调用
+2. 返回一个对象来更新 state，如果返回 null 则不更新任何内容（state 的值在任何时候都取决于返回值）
+
+###### getSnapshotBeforeUpdate（更新之前获取快照）
+1. 在最近一次渲染输出（提交到 DOM 节点）之前调用
+2. 生命周期方法的任何返回值将作为参数传递给 componentDidUpdate()
+
 
 ### 高阶组件HOC
 > 测试文件：src/hocTest.jsx
@@ -139,6 +252,35 @@ npx create-react-app xxx
 1. 创建函数式组件：rfc
 2. 创建class组件：rcc
 
+##### class中定义属性/方法
+1. 属性：
+    - 原型属性：class的prototype上定义
+    - 实例属性：
+        - constructor中定义
+        - class中直接定义（上面的简写）
+2. 方法：
+    - 原型方法：class中直接定义
+    - 实例方法：class中通过属性的形式定义方法
+```
+class Person {
+    age = 12  // 实例属性
+    constructor(name) {
+        // 实例属性
+        this.name = name
+    }
+    // 实例方法
+    walk = () => {
+        // ...
+    }
+    // 原型方法
+    say() {
+        // ...
+    }
+}
+// 原型属性
+Person.prototype.sex = '男'
+```
+
 ##### 纯函数
 1. 定义：
     - 确定输入，会产生确定的输出
@@ -152,3 +294,36 @@ arr.slice(1, 2)
 // 非纯函数，修改原数组
 arr.splice(1, 2)
 ```
+
+##### 高阶函数
+1. 条件（二者其一即可）：
+    - 函数的参数是一个函数
+    - 函数的返回值是一个函数
+2. 常见高阶函数：Promise、setTimeout、arr.map() 
+3. 函数柯里化：通过函数调用并返回一个函数，最终实现多次接受参数统一处理的形式
+    ```
+    function sum(a) {
+        return (b) => {
+            return a + b
+        }
+    }
+    console.log(sum(2)(3))
+    ```
+
+##### 组件样式模块化
+1. 样式文件命名为xx.module.css
+2. 使用：
+    ```
+    import style from './xx.module.css'
+
+    // ...
+    <span className={style.title}>hello</span>
+    ```
+
+
+# 面试题
+### 数组遍历中的key
+1. key的作用：在diff算法中作为虚拟DOM的唯一标识
+2. 使用index作为key，可能导致的问题：
+    - 对列表数据做一些破坏顺序的操作时（逆序增删等），会产生没有必要的DOM更新
+    - 如果结构中包含输入性的DOM时（input/checkbox等），会一些造成界面的错误

@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-07 11:20:59
+ * @LastEditTime: 2022-09-07 17:56:48
  * @Descripttion: 
 -->
 # 创建项目
@@ -90,6 +90,25 @@ npx create-react-app xxx
     - 方式一：context.Consumer组件，包裹一个函数式组件，并接受context为参数，组件中直接通过context.xxx访问
     - 方式二：class上定义static contextType属性，并赋值为全局的context，即可直接通过this.context.xxx访问
     - 方式三：使用useContext hook的方式（适用于函数式组件），通过const val = useContext(context)获取传递的参数，即可直接通过val.xxx访问
+
+##### 兄弟组件传参（PubSubJS）
+> 测试文件：pubsub/index.jsx
+1. 安装
+    ```js
+    npm i pubsub-js -S
+    ```
+2. 使用：
+    ```js
+    import PubSub from "pubsub-js";
+
+    // 发布消息
+    PubSub.publish("消息名称", "消息内容");
+
+    // 订阅消息
+    const token = PubSub.subscribe("消息名称", cb)
+    // 取消订阅
+    PubSub.unsubscribe(token);
+    ```
 
 
 ### 生命周期
@@ -247,6 +266,16 @@ npx create-react-app xxx
     - getFieldsValue：获取表单的fields值
     - validateFields：校验表单数据
 
+### 组件样式模块化
+1. 样式文件命名为xx.module.css
+2. 使用：
+    ```
+    import style from './xx.module.css'
+
+    // ...
+    <span className={style.title}>hello</span>
+    ```
+
 ### 拓展
 ##### 快捷键
 1. 创建函数式组件：rfc
@@ -309,17 +338,6 @@ arr.splice(1, 2)
     }
     console.log(sum(2)(3))
     ```
-
-##### 组件样式模块化
-1. 样式文件命名为xx.module.css
-2. 使用：
-    ```
-    import style from './xx.module.css'
-
-    // ...
-    <span className={style.title}>hello</span>
-    ```
-
 
 # 面试题
 ### 数组遍历中的key

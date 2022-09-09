@@ -1,4 +1,4 @@
-# react-router基本使用
+# react-router 5基本使用
 ### 常用组件
 1. 路由连接：Link、NavLink
 	```html
@@ -31,6 +31,64 @@
 ### 嵌套路由
 1. 注册子路由时，要写上父路由的path值
 2. 路由的匹配是按照注册路由的顺序进行的	
+
+
+### 路由组件传参
+1. params参数
+	```html
+	<!-- 路由链接(携带参数) -->
+	<Link to='/demo/test/tom/18'}>详情</Link>
+	<!-- 注册路由(声明接收) -->
+	<Route path="/demo/test/:name/:age" component={Test}/>
+	<!-- 接收参数：this.props.match.params -->
+	```
+2. search参数
+	```html
+	<!-- 路由链接(携带参数) -->
+	<Link to='/demo/test?name=tom&age=18'}>详情</Link>
+	<!-- 注册路由(无需声明，正常注册即可) -->
+	<Route path="/demo/test" component={Test}/>
+	<!-- 接收参数：this.props.location.search -->
+
+	<!-- 备注：获取到的search是urlencoded编码字符串，需要借助querystring解析 -->
+	```
+3. state参数
+	```html
+	<!-- 路由链接(携带参数) -->
+	<Link to={{pathname:'/demo/test',state:{name:'tom',age:18}}}>详情</Link>
+	<!-- 注册路由(无需声明，正常注册即可) -->
+	<Route path="/demo/test" component={Test}/>
+	<!-- 接收参数：this.props.location.state -->
+
+	<!-- 备注：刷新也可以保留住参数 -->
+	```
+
+### 编程式路由导航
+1. 借助this.prosp.history对象上的API对操作路由跳转、前进、后退
+2. push/replace方法的第二个参数是state，当state传参时使用
+	```js
+	this.prosp.history.push()
+	this.prosp.history.replace()
+	this.prosp.history.goBack()
+	this.prosp.history.goForward()
+	this.prosp.history.go()
+	```
+
+### withRouter
+1. 通过 withRouter 高阶组件访问 history 对象的属性和最近的 `<Route>` 的 match
+2. 当路由渲染时， withRouter 会将已经更新的 match ， location 和 history 属性传递给被包裹的组件
+
+### BrowserRouter与HashRouter的区别
+1. 底层原理不一样：
+	- BrowserRouter使用的是H5的history API，不兼容IE9及以下版本。
+	- HashRouter使用的是URL的哈希值。
+2. path表现形式不一样
+	- BrowserRouter的路径中没有#，例如：localhost:3000/demo/test
+	- HashRouter的路径包含#，例如：localhost:3000/#/demo/test
+3. 刷新后对路由state参数的影响
+	- BrowserRouter没有任何影响，因为state保存在history对象中。
+	- HashRouter刷新后会导致路由state参数的丢失！！！
+4. 备注：HashRouter可以用于解决一些路径错误相关的问题
 
 # 拓展
 ### 路由组件、一般组件

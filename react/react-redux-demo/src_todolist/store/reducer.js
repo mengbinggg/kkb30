@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-01 20:18:43
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-01 21:54:37
+ * @LastEditTime: 2022-09-11 11:28:13
  * @Descripttion:
  */
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
     list: [],
 };
 
-export default (state = initialState, { type, payload }) => {
+const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case "changeInpt":
             return {
@@ -34,3 +34,4 @@ export default (state = initialState, { type, payload }) => {
             return state;
     }
 };
+export default reducer

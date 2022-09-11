@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-07 17:56:48
+ * @LastEditTime: 2022-09-11 17:55:51
  * @Descripttion: 
 -->
 # 创建项目
@@ -313,7 +313,7 @@ Person.prototype.sex = '男'
 ##### 纯函数
 1. 定义：
     - 确定输入，会产生确定的输出
-    - 不会产生副作用（如修改了全局变量、改变外部数据等）
+    - 不会产生副作用（如修改了输入值、全局变量、改变外部数据等）
 2. 例子：
 ```
 // 纯函数，不会修改原数组

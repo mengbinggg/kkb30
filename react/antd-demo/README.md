@@ -2,36 +2,34 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-09 16:13:57
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-10 14:14:16
+ * @LastEditTime: 2022-09-11 21:32:25
  * @Descripttion: 
 -->
+# antd按需引入样式
+1. 安装依赖：npm i react-app-rewired customize-cra babel-plugin-import -D
+2. 修改package.json中script命令
+3. 添加配置文件config-overrides.js
+   ```js
+	const { override, fixBabelImports } = require('customize-cra');
+	module.exports = override(
+		fixBabelImports('import', {
+			libraryName: 'antd',
+			libraryDirectory: 'es',
+			style: 'css',
+		})
+	);
+   ```
+4. 备注：不用在组件里亲自引入样式了，即：import 'antd/dist/antd.css'应该删掉
 
-
-antd的按需引入+自定主题
-			1.安装依赖：yarn add react-app-rewired customize-cra babel-plugin-import less less-loader
-			2.修改package.json
-					....
-						"scripts": {
-							"start": "react-app-rewired start",
-							"build": "react-app-rewired build",
-							"test": "react-app-rewired test",
-							"eject": "react-scripts eject"
-						},
-					....
-			3.根目录下创建config-overrides.js
-					//配置具体的修改规则
-					const { override, fixBabelImports,addLessLoader} = require('customize-cra');
-					module.exports = override(
-						fixBabelImports('import', {
-							libraryName: 'antd',
-							libraryDirectory: 'es',
-							style: true,
-						}),
-						addLessLoader({
-							lessOptions:{
-								javascriptEnabled: true,
-								modifyVars: { '@primary-color': 'green' },
-							}
-						}),
-					);
-				4.备注：不用在组件里亲自引入样式了，即：import 'antd/dist/antd.css'应该删掉
+# antd自定义主题
+1. 安装依赖：npm i less less-loader -D
+2. 修改配置文件config-overrides.js
+   ```js
+	// ...
+	addLessLoader({
+		lessOptions:{
+			javascriptEnabled: true,
+			modifyVars: { '@primary-color': 'green' },
+		}
+	}),
+   ```

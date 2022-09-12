@@ -90,6 +90,21 @@
 	- HashRouter刷新后会导致路由state参数的丢失！！！
 4. 备注：HashRouter可以用于解决一些路径错误相关的问题
 
+### 路由懒加载
+> 测试文件：[src/pages/Home/index.jsx](./src/pages/Home/index.jsx)
+```jsx
+// 1. 通过React的lazy函数配合import()函数动态加载路由组件 ===> 路由组件代码会被分开打包
+const Login = lazy(()=>import('@/pages/Login'))
+
+// 2. 通过`<Suspense>`指定在加载得到路由打包文件前显示一个自定义loading界面
+<Suspense fallback={<h1>loading.....</h1>}>
+	<Switch>
+		<Route path="/xxx" component={Xxxx}/>
+		<Redirect to="/login"/>
+	</Switch>
+</Suspense>
+```
+
 # 拓展
 ### 路由组件、一般组件
 1. 用法不同：

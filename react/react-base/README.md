@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-12 10:08:30
+ * @LastEditTime: 2022-09-12 20:03:25
  * @Descripttion: 
 -->
 # 创建项目
@@ -20,7 +20,18 @@ npx create-react-app xxx
 ### state
 1. 作用：定义组件状态
 2. 注意：
-    - 只能通过setState的形式更改，属性更改时是**合并**而不是直接替换
+   - 只能通过setState的形式更改，属性更改时是**合并**而不是直接替换
+3. 更新状态：setState()
+  ```javascript
+  setState(param1, [cb])
+  // param1 可以是一个对象，也可以是一个函数
+    // 对象：为状态改变对象（是函数式的语法糖）
+    // 函数：接受state和props两个参数，并返回一个状态改变对象
+    // 如何使用：如果新状态不依赖于原状态 ===> 使用对象方式；如果新状态依赖于原状态 ===> 使用函数方式
+  // cb 是可选的回调函数, 它在状态更新完毕、界面也更新后(render调用后)才被调用，用于获取最新的状态数据
+
+  this.setState( state => ({count:state.count+1}))
+  ```
 
 ### props
 1. 作用：通过标签属性项组件内部传递参数
@@ -91,7 +102,7 @@ npx create-react-app xxx
     - 通过context.Provider组件包裹子元素，并提供value属性，用于传递数据
 3. 子孙组件中：
     - 方式一：context.Consumer组件，包裹一个函数式组件，并接受context为参数，组件中直接通过context.xxx访问
-    - 方式二：class上定义static contextType属性，并赋值为全局的context，即可直接通过this.context.xxx访问
+    - 方式二：class上定义static contextType属性，并赋值为全局的context，即可直接通过this.context.xxx访问（仅适用于类组件）
     - 方式三：使用useContext hook的方式（适用于函数式组件），通过const val = useContext(context)获取传递的参数，即可直接通过val.xxx访问
 
 ##### 兄弟组件传参（PubSubJS）
@@ -274,6 +285,119 @@ npx create-react-app xxx
     <span className={style.title}>hello</span>
     ```
 
+## 组件内部动态传入带内容的结构
+1. children props
+    ```js
+    <A>
+        <B>xxxx</B>
+    </A>
+
+    // A组件中，通过{this.props.children}调用子组件
+    // 问题: A组件无法向B组件传递组件内部的数据
+    ```
+2. render props
+    ```javascript
+    <A render={(data) => <C data={data}></C>}></A>
+
+    // A组件: {this.props.render(内部state数据)}
+    // C组件: 读取A组件传入的数据显示 {this.props.data} 
+    ```
+
+## 错误边界
+1. 作用：用来捕获后代组件错误，渲染出备用页面
+2. 存在的问题：只能捕获后代组件生命周期产生的错误，不能捕获自己组件产生的错误和其他组件在合成事件、定时器中产生的错误
+3. 使用：
+   ```javascript
+    // getDerivedStateFromError配合componentDidCatch使用
+
+    // 生命周期函数，一旦后台组件报错，就会触发
+    static getDerivedStateFromError(error) {
+        console.log(error);
+        // 在render之前触发
+        // 返回新的state
+        return {
+            hasError: true,
+        };
+    }
+
+    componentDidCatch(error, info) {
+        // 统计页面的错误。发送请求发送到后台去
+        console.log(error, info);
+    }
+   ```
+
+# Hooks
+## 概念
+1. Hook是React 16.8.0版本增加的新特性/新语法
+2. 可以在**函数组件**中使用 state 以及其他的 React 特性
+## 常见hook
+1. useState()
+   - 作用：操作函数式组件的state
+   - 语法：
+   ```jsx
+   const [xxx, setXxx] = React.useState(initValue)  
+   /*
+   useState()说明:
+        参数: 第一次初始化指定的值
+        返回值: 第1个为内部当前状态值, 第2个为更新状态值的函数
+   setXxx()2种写法:
+        setXxx(newValue): 参数为非函数值, 直接指定新的状态值, 内部用其覆盖原来的状态值
+        setXxx(value => newValue): 参数为函数, 接收原本的状态值, 返回新的状态值, 内部用其覆盖原来的状态值
+   */
+   ```
+2. useEffect()
+   - 作用：可以让你在函数组件中执行副作用操作(用于模拟类组件中的生命周期钩子)
+   - React中的副作用操作：
+     - 发ajax请求数据获取
+     - 设置订阅 / 启动定时器
+     - 手动更改真实DOM
+   - 语法：
+   ```javascript
+    useEffect(() => { 
+        // 在此可以执行任何带副作用操作
+        // ...
+
+        // 在组件卸载前执行（做一些收尾工作, 比如清除定时器/取消订阅等）
+        return () => { 
+            // ...
+        }
+    }, [stateValue]) 
+    // 如果为空，检测全部state
+    // 如果为[], 不检测state（回调函数只会在第一次render()后执行）
+    // 如果有值，检测指定值
+   ```
+   - 备注：可以把 useEffect Hook 看做如下三个函数的组合
+     - componentDidMount()
+     - componentDidUpdate()
+     - componentWillUnmount() 
+3. useRef()
+   - 作用：可以在函数组件中存储/查找组件内的标签或任意其它数据
+   - 语法: const refContainer = useRef()
+   ```jsx
+    const inp = useRef()
+
+    <input type="text" ref={inp}/>
+
+    // 使用
+    inp.current.value
+   ```
+   - 备注：用法与React.createRef()一样
+
+
+# 组件的优化
+## render渲染
+1. 问题：
+   - 只要执行setState(), 即使不改变状态数据, 组件也会重新render()
+   - 只要当前组件重新render(), 就会自动重新render子组件（即使子组件中未使用到父组件中的状态，也会重新render）
+2. 原因：Component中的shouldComponentUpdate()总是返回true
+3. 解决：
+   - 方法一：**重写shouldComponentUpdate()方法**
+     - 比较新旧state或props数据, 如果有变化才返回true, 如果没有返回false
+   - 方法二：**使用PureComponent**（项目中一般使用PureComponent来优化）
+     - PureComponent重写了shouldComponentUpdate(), 只有state或props数据有变化才返回true
+     - PureComponent只是进行state和props数据的浅比较(只是比较地址是否相同), 如果只是数据对象内部数据变了, 返回false  
+     - 因此setState()时，不要直接修改state数据, 而是要产生新数据
+
 # 拓展
 ## 快捷键
 1. 创建函数式组件：rfc
@@ -336,6 +460,10 @@ arr.splice(1, 2)
     }
     console.log(sum(2)(3))
     ```
+## Fragment
+1. 作用：可以不用必须有一个真实的DOM根标签了
+2. 和`<></>`相同，但是Fragment可以添加key属性
+
 
 # 面试题
 ## 数组遍历中的key

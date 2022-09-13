@@ -1,14 +1,14 @@
 # react-router 5基本使用
 ### 常用组件
 1. 路由连接：Link、NavLink
-	```html
+	```jsx
 	<Link to="/xxxxx">Demo</Link>
 
 	// NavLink可以实现路由链接的高亮，通过activeClassName指定样式名
 	<NavLink to='/home'>新闻</NavLink>
 	```
 2. 路由跳转：Route
-	```html
+	```jsx
 	<Route path='/xxxx' component={Demo}/>
 	```
 3. BrowserRouter/HashRouter
@@ -24,7 +24,7 @@
 ### 路由的严格匹配
 1. 默认使用的是模糊匹配（【输入的路径】必须包含要【匹配的路径】，且顺序要一致）
 2. 严格匹配不要随便开启，需要再开，有些时候开启会导致无法继续匹配二级路由
-	```html
+	```jsx
 	<Route exact path="/about" component={About}/>
 	```
 
@@ -35,7 +35,7 @@
 
 ### 路由组件传参
 1. params参数
-	```html
+	```jsx
 	<!-- 路由链接(携带参数) -->
 	<Link to='/demo/test/tom/18'}>详情</Link>
 	<!-- 注册路由(声明接收) -->
@@ -43,7 +43,7 @@
 	<!-- 接收参数：this.props.match.params -->
 	```
 2. search参数
-	```html
+	```jsx
 	<!-- 路由链接(携带参数) -->
 	<Link to='/demo/test?name=tom&age=18'}>详情</Link>
 	<!-- 注册路由(无需声明，正常注册即可) -->
@@ -53,7 +53,7 @@
 	<!-- 备注：获取到的search是urlencoded编码字符串，需要借助querystring解析 -->
 	```
 3. state参数
-	```html
+	```jsx
 	<!-- 路由链接(携带参数) -->
 	<Link to={{pathname:'/demo/test',state:{name:'tom',age:18}}}>详情</Link>
 	<!-- 注册路由(无需声明，正常注册即可) -->
@@ -108,8 +108,8 @@ const Login = lazy(()=>import('@/pages/Login'))
 # 拓展
 ### 路由组件、一般组件
 1. 用法不同：
-    - 一般组件：<Demo/>
-    - 路由组件：<Route path="/demo" component={Demo}/>
+    - 一般组件：`<Demo/>`
+    - 路由组件：`<Route path="/demo" component={Demo}/>`
 2. 存放位置不同：
     - 一般组件：components
     - 路由组件：pages

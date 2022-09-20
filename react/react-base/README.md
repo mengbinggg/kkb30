@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-12 20:03:25
+ * @LastEditTime: 2022-09-20 12:14:25
  * @Descripttion: 
 -->
 # 创建项目
@@ -88,24 +88,27 @@ npx create-react-app xxx
 
 ### 祖孙组件传参（context）
 > 测试文件：[src/contextTest_new.jsx](./src/contextTest_new.jsx)、[src/contextTest_old.jsx](src/contextTest_old.jsx)
-#### 旧的方式（已摈弃，不能再严格模式下使用）
-1. 父组件中：
-    - 声明上下文数据类型：static childContextTypes = { ... }
-    - 向上下文中存值：getChildContext() { ... }
-2. 子组件中：
-    - 声明需要的上下文数据类型：static contextType = { ... }
-    - 直接使用：this.context.xxx
+1. 旧的方式（已摈弃，不能再严格模式下使用）
+    - 父组件中：
+        - 声明上下文数据类型：static childContextTypes = { ... }
+        - 向上下文中存值：getChildContext() { ... }
+    - 子组件中：
+        - 声明需要的上下文数据类型：static contextType = { ... }
+        - 直接使用：this.context.xxx
+2. 新的方式
+   - 先创建context上下文（默认值会在父级元素没有提供provider时使用）：const context = React.createContext(defaultValue)
+   - 祖代组件中：
+       - 通过context.Provider组件包裹子元素，并提供value属性，用于传递数据
+   - 子孙组件中：
+       - 方式一：context.Consumer组件，包裹一个函数式组件，并接受context为参数，组件中直接通过context.xxx访问
+       - 方式二：class上定义static contextType属性，并赋值为全局的context，即可直接通过this.context.xxx访问
+       - 方式三：使用useContext hook的方式，通过const val = useContext(context)获取传递的参数，即可直接通过val.xxx访问
+       - **区别**：
+         - contextType：只适用于类组件，只能订阅单一的context来源
+         - useContext：只适用于函数式组件、自定义hook，可以定义多个context来源
+         - consumer：适用于类组件、函数式组件，也可以定义多个context来源
 
-#### 新的方式
-1. 先创建context上下文（默认值会在父级元素没有提供provider时使用）：const context = React.createContext(defaultValue)
-2. 祖代组件中：
-    - 通过context.Provider组件包裹子元素，并提供value属性，用于传递数据
-3. 子孙组件中：
-    - 方式一：context.Consumer组件，包裹一个函数式组件，并接受context为参数，组件中直接通过context.xxx访问
-    - 方式二：class上定义static contextType属性，并赋值为全局的context，即可直接通过this.context.xxx访问（仅适用于类组件）
-    - 方式三：使用useContext hook的方式（适用于函数式组件），通过const val = useContext(context)获取传递的参数，即可直接通过val.xxx访问
-
-##### 兄弟组件传参（PubSubJS）
+### 兄弟组件传参（PubSubJS）
 > 测试文件：pubsub/index.jsx
 1. 安装
     ```js
@@ -123,7 +126,6 @@ npx create-react-app xxx
     // 取消订阅
     PubSub.unsubscribe(token);
     ```
-
 
 ## 生命周期
 > 测试文件：[src/lifeCycleTest.jsx](./src/lifeCycleTest.jsx)
@@ -383,6 +385,34 @@ npx create-react-app xxx
    ```
    - 备注：用法与React.createRef()一样
 
+## 自定义hook
+
+# 常用API
+## React.cloneElement
+
+## React.forwardRef
+> 测试文件：[src/ForwardRefTest.jsx](./src/ForwardRefTest.jsx)
+1. 作用：会返回一个新的组件，并将接受到的ref属性转发到子组件中
+2. 使用场景：
+   - 转发refs到DOM组件
+   - 在高阶组件中转发refs
+
+## React.PureComponent 
+> [link](./src/PureComponentTest.jsx)
+1. 定义：与Component组件非常相似，不同点是它实现了shouldComponentUpdate()方法
+2. 注意：
+   - 只能在类组件中使用
+   - PureComponent重写了shouldComponentUpdate(), 只有state或props数据有变化才返回true
+   - PureComponent只是进行state和props数据的浅比较(只是比较地址是否相同), 如果只是数据对象内部数据变了, 返回false 
+
+## React.memo
+1. 作用：通过记忆渲染结果来提高组件性能，即组件下次渲染时会直接复用最近一次渲染结果
+2. 使用场景：当传入相同props时，会返回相同的渲染结果
+3. 注意：
+   - 仅检查props的变更，如果context、state的变化，仍会重新渲染
+   - 只做props数据的浅层比较
+
+# render props
 
 # 组件的优化
 ## render渲染
@@ -394,9 +424,13 @@ npx create-react-app xxx
    - 方法一：**重写shouldComponentUpdate()方法**
      - 比较新旧state或props数据, 如果有变化才返回true, 如果没有返回false
    - 方法二：**使用PureComponent**（项目中一般使用PureComponent来优化）
-     - PureComponent重写了shouldComponentUpdate(), 只有state或props数据有变化才返回true
-     - PureComponent只是进行state和props数据的浅比较(只是比较地址是否相同), 如果只是数据对象内部数据变了, 返回false  
-     - 因此setState()时，不要直接修改state数据, 而是要产生新数据
+     - PureComponent只是进行state和props数据的浅比较，因此setState()时，不要直接修改state数据, 而是要产生新数据
+
+## 组件懒加载
+> 测试文件：[./src/lazyTest](./src/lazyTest)
+1. React.lazy可以动态加载组件，可以减少bundle体积，提高首屏加载速度
+2. 需配合suspense组件使用，用于指定加载指示器，在子组件尚未展示出来时使用
+
 
 # 拓展
 ## 快捷键

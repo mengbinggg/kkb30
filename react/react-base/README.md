@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-20 12:14:25
+ * @LastEditTime: 2022-09-20 13:33:59
  * @Descripttion: 
 -->
 # 创建项目
@@ -263,6 +263,10 @@ npx create-react-app xxx
     - descriptor：当前方法的属性描述符
 2. 返回值：装饰之后的方法属性描述符
 
+## render props
+> [link](./src/RenderPropsTest.jsx)
+1. 定义：是指在组件之间通过一个值为函数的prop共享代码的一种技术
+
 
 ## rc-form表单收集器
 > 测试文件：[src/rcFormTest.jsx](./src/rcFormTest.jsx)
@@ -389,6 +393,20 @@ npx create-react-app xxx
 
 # 常用API
 ## React.cloneElement
+```jsx
+React.cloneElement(
+  element,
+  [config],
+  [...children]
+)
+
+// 等同于
+<element.type {...element.props} {...props}>{children}</element.type>
+```
+1. 作用：以element元素为模板，克隆并返回一个新的组件
+2. 说明：   
+   - config中包含新的config、key、ref，返回组件的props是新的props和原始props浅合并之后的结果
+   - 如果children有值，将会覆盖原始组件的子元素
 
 ## React.forwardRef
 > 测试文件：[src/ForwardRefTest.jsx](./src/ForwardRefTest.jsx)
@@ -411,8 +429,6 @@ npx create-react-app xxx
 3. 注意：
    - 仅检查props的变更，如果context、state的变化，仍会重新渲染
    - 只做props数据的浅层比较
-
-# render props
 
 # 组件的优化
 ## render渲染

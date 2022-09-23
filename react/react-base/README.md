@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-20 13:33:59
+ * @LastEditTime: 2022-09-23 17:47:05
  * @Descripttion: 
 -->
 # 创建项目
@@ -158,18 +158,18 @@ npx create-react-app xxx
 #### 新的生命周期
 1. 挂载阶段
     - constructor
-    - getDerivedStateFromProps
+    - static getDerivedStateFromProps
     - render
     - componentDidMount
 2. 更新阶段
     - 调用setState()更新 / 父组件更新：
-        - getDerivedStateFromProps
+        - static getDerivedStateFromProps
         - shouldComponentUpdate
         - getSnapshotBeforeUpdate
         - render
         - componentDidUpdate
     - 调用forceUpdate()更新：
-        - getDerivedStateFromProps
+        - static getDerivedStateFromProps
         - getSnapshotBeforeUpdate
         - render
         - componentDidUpdate
@@ -213,6 +213,9 @@ npx create-react-app xxx
    - 在最近一次渲染输出（提交到 DOM 节点）之前调用
    - 生命周期方法的任何返回值将作为参数传递给 componentDidUpdate()
 
+### 生命周期执行次数
+> [link](./src/LifecycleOrderTest.jsx)
+1. constructor/getDerivedStateFromProps/shouldComponentUpdate/render/getSnapshotBeforeUpdate这些生命周期都用可能被调用多次，因此不能出现副作用（在函数式组件中已经做好了区分，除了前面5个外，都是副作用函数）
 
 ## 高阶组件HOC
 > 测试文件：[src/hocTest.jsx](./src/hocTest.jsx)

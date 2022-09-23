@@ -2,11 +2,11 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-02 14:09:29
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-11 19:27:52
+ * @LastEditTime: 2022-09-23 15:58:52
  * @Descripttion: 
 -->
 # redux
-> 测试文件：src_redux
+> [src_redux](./src_redux)
 ## 基本使用
 ![原理](./public/screenshots/redux原理图.png)
 1. 安装：
@@ -40,7 +40,7 @@
 
 # react-redux
 ## 基本使用
-> 测试文件：src_react_redux_base
+> [src_react_redux_base](./src_react_redux_base/)
 
 ![原理](./public/screenshots/react-redux模型图.png)
 1. 两个概念：
@@ -51,20 +51,20 @@
       ```js
       connect(mapStateToProps,mapDispatchToProps)(UI组件)
       // mapStateToProps：映射状态，返回值是一个对象
-	   // mapDispatchToProps：
+	  // mapDispatchToProps：
       //   - 映射操作状态的方法，返回值是一个对象
       //   - 也可以是一个对象
       ```
-     - 通过容器组件的props传递容器组件中需要的state，或者给所有容器组件外层（即`<App>`）包裹一个`<Provider>`
+   - 通过容器组件的props传递容器组件中需要的state，或者给所有容器组件外层（即`<App>`）包裹一个`<Provider>`
 3. 备注：不用再自己检测redux中状态的改变了，容器组件可以自动完成这个工作
 
 ## 数据共享
-> 测试文件：src_react_redux
+> [src_react_redux](./src)
 1. 目标：定义一个Pserson组件，和Count组件通过redux共享数据
 2. 重点：Person的reducer和Count的Reducer要使用combineReducers进行合并，合并后的总状态是一个对象
 3. 备注：可通过nanoid()生成唯一ID
 
-# redux开发者工具
+## redux开发者工具
 1. 想要在项目中使用redux开发者工具，需要借助第三方中间件redux-devtools-extension
 2. 配置：
    ```js

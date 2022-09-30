@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-23 17:47:05
+ * @LastEditTime: 2022-09-30 14:19:16
  * @Descripttion: 
 -->
 # 创建项目
@@ -451,6 +451,38 @@ React.cloneElement(
 2. 需配合suspense组件使用，用于指定加载指示器，在子组件尚未展示出来时使用
 
 
+# immutable
+## 概念
+1. 作用：实现了一个完全的数据持久化结构，所有的操作都会返回一个新的值，但其中的内部结构是共享的，减少了内存的占用
+2. 三大特点：
+   - 持久化数据结构：数据修改时，能保持修改前的数据状态
+   - 结构共享：在对对象进行操作时，只会修改当前节点及其祖父节点，其他保持不变，这样可以公用相同的部分，从而大大的提高新你那
+   - 惰性操作：
+    ```jsx
+    // 用seq创建的对象，其实代码块没有被执行，只是被声明了
+    // 代码在get(1)的时候才会实际被执行，取到index=1的数之后，后面的就不会再执行了
+    const seq = Seq([1, 2, 3, 4, 5, 6, 7, 8]).filter(item => {
+        console.log("执行了")
+        return item % 2
+    })
+    console.log(seq.get(1))
+    ```
+
+## 基本操作
+1. Map(): 原生object转Map对象 (只会转换第一层)
+2. List(): 原生array转List对象 (只会转换第一层)
+3. fromJS(): 原生js转immutable对象  (深度转换，会将内部嵌套的对象和数组全部转成immutable)
+4. toJS(): immutable对象转原生js  (深度转换，会将内部嵌套的Map和List全部转换成原生js)
+5. 查看List或者map大小：immutableData.size  或者 immutableData.count()
+6. is(): 判断两个immutable对象是否相等
+7. merge()  对象合并
+8. 增删改查
+   - set/setIn
+   - delete/deleteIn
+   - update/updateIn
+   - get/getIn
+
+
 # 拓展
 ## 快捷键
 1. 创建函数式组件：rfc
@@ -516,6 +548,43 @@ arr.splice(1, 2)
 ## Fragment
 1. 作用：可以不用必须有一个真实的DOM根标签了
 2. 和`<></>`相同，但是Fragment可以添加key属性
+
+## react配置代理
+### 方式一
+1. 步骤：在package.json中追加如下配置
+    ```json
+    "proxy":"http://localhost:5000"
+    ```
+2. 缺点：不能配置多个代理
+3. 工作方式：当请求了3000不存在的资源时，那么该请求会转发给5000 （优先匹配前端资源）
+
+### 方式二
+1. 步骤：创建代理配置文件src/setupProxy.js
+    ```js
+    const proxy = require('http-proxy-middleware')
+
+    module.exports = function (app) {
+        app.use(
+            //api1是需要转发的请求(所有带有/api1前缀的请求都会转发)
+            proxy('/api1', {
+                target: 'http://localhost:5000', // 转发目标地址
+                changeOrigin: true, // 控制服务器接收到的请求头中host字段的值
+                /*
+                    changeOrigin设置为true时，服务器收到的请求头中的host为：localhost:5000
+                    changeOrigin设置为false时，服务器收到的请求头中的host为：localhost:3000
+                    changeOrigin默认值为false，但我们一般将changeOrigin值设为true
+                */
+                pathRewrite: { '^/api1': '' }, // 去除请求前缀，保证交给后台服务器的是正常请求地址(必须配置)
+            }),
+            proxy('/api2', {
+                target: 'http://localhost:5001',
+                changeOrigin: true,
+                pathRewrite: { '^/api2': '' },
+            })
+        )
+    }
+    ```
+2. 说明：可以配置多个代理，可以灵活的控制请求是否走代理
 
 
 # 面试题

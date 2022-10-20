@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-01 14:46:01
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-01 15:06:51
+ * @LastEditTime: 2022-10-08 10:27:03
  * @Descripttion: 实现父子组件间传参（props方式）
  */
 import React, { Component } from 'react'
@@ -13,10 +13,12 @@ class Child extends Component  {
   static defaultProps = {
     msg: '我是默认内容'
   }
+
   // 设置参数数据类型
   static propTypes = {
     msg: PropTypes.string
   }
+  
   render() {
     return (
       <>

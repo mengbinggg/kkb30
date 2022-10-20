@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-18 16:47:16
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-30 14:19:16
+ * @LastEditTime: 2022-10-08 10:55:55
  * @Descripttion: 
 -->
 # 创建项目
@@ -19,14 +19,12 @@ npx create-react-app xxx
 ## 组件三大核心属性
 ### state
 1. 作用：定义组件状态
-2. 注意：
-   - 只能通过setState的形式更改，属性更改时是**合并**而不是直接替换
-3. 更新状态：setState()
+2. 更新状态：setState()
   ```javascript
   setState(param1, [cb])
   // param1 可以是一个对象，也可以是一个函数
-    // 对象：为状态改变对象（是函数式的语法糖）
-    // 函数：接受state和props两个参数，并返回一个状态改变对象
+    // 对象：为状态改变对象（是函数式的语法糖，属性更改时是替换）
+    // 函数：接受state和props两个参数，并返回一个状态改变对象（属性更改时是合并）
     // 如何使用：如果新状态不依赖于原状态 ===> 使用对象方式；如果新状态依赖于原状态 ===> 使用函数方式
   // cb 是可选的回调函数, 它在状态更新完毕、界面也更新后(render调用后)才被调用，用于获取最新的状态数据
 
@@ -34,7 +32,8 @@ npx create-react-app xxx
   ```
 
 ### props
-1. 作用：通过标签属性项组件内部传递参数
+> 测试文件：[src/propsTest.jsx](./src/propsTest.jsx)
+1. 作用：通过标签属性向组件内部传递参数
 2. 批量传递参数：
     ```jsx
     <Person {...obj}></Person>
@@ -42,33 +41,43 @@ npx create-react-app xxx
 3. 参数进行限制：
     - propTypes：限制参数类型/是否必传（如：PropTypes.number.isRequired）
     - defaultProp：设置参数默认值
-4. 函数式组件中使用props：通过函数参数接受
+4. 使用props：
+   - 函数式组件中：通过函数参数接受
+   - 类组件中：通过构造函数参数接受
 
 ### ref
 1. 作用：获取组件元素
 2. 形式：
     - 字符串形式（已过时）：
-        ```html
+        ```jsx
         <input ref="input"/>
 
         // 获取
         this.refs.input.value
         ```
     - 回调函数形式：
-        ```html
-        <input ref="(c) => {this.input = c}"/>
+        ```jsx
+        <input ref={ c => this.input = c } />
 
         // 获取
         this.input.value
         ```
     - createRef形式：
-        ```html
+        ```jsx
         // 创建一个ref容器，用于存放绑定的元素
-        const myInput = React.createRef()
-        <input ref="myInput"/>
+        this.myInput = React.createRef()
+        <input ref={ this.myInput }/>
 
         // 获取
         this.myInput.current.value
+        ```
+    - useRef形式（函数式组件中使用）：
+        ```jsx
+        const inp = useRef()
+        <input type="text" ref={ inp }/>
+
+        // 使用
+        inp.current.value
         ```
 
 ## 受控组件 VS 非受控组件
@@ -109,7 +118,7 @@ npx create-react-app xxx
          - consumer：适用于类组件、函数式组件，也可以定义多个context来源
 
 ### 兄弟组件传参（PubSubJS）
-> 测试文件：pubsub/index.jsx
+> 测试文件：[pubsub/index.jsx](./src/pubsub/index.jsx)
 1. 安装
     ```js
     npm i pubsub-js -S

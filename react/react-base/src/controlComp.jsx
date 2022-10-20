@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-05 15:12:53
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-05 15:31:18
+ * @LastEditTime: 2022-10-08 10:24:04
  * @Descripttion: 受控组件 VS 非受控组件
  */
 import React, { Component } from "react";
@@ -12,6 +12,7 @@ export default class controlComp extends Component {
         inp1: "999",
     };
     inp2 = React.createRef();
+
     render() {
         return (
             <div>

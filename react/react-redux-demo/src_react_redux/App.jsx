@@ -2,18 +2,22 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-11 15:08:00
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-10-08 13:00:34
+ * @LastEditTime: 2022-09-11 18:00:00
  * @Descripttion: 
  */
 import React, { Component } from 'react'
-import Demo from './02_严格模式'
+import Count from './containers/Count'
+import Person from './containers/Person'
 
 
 export default class App extends Component {
     render() {
         return (
             <div>
-                <Demo></Demo>
+                {/* <Count store={store}></Count> */}
+                <Count></Count>
+                <hr />
+                <Person></Person>
             </div>
         )
     }

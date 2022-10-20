@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-02 14:09:29
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-23 15:58:52
+ * @LastEditTime: 2022-10-08 12:59:41
  * @Descripttion: 
 -->
 # redux
@@ -72,6 +72,9 @@
 	const store = createStore(allReducer,composeWithDevTools(applyMiddleware(thunk)))
    ```
 
+# mobx
+## 概念
+1. 作用：
 
 
 

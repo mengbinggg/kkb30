@@ -1,23 +1,17 @@
-import logo from './logo.svg';
+/*
+ * @Author: mengbing mengbingg@outlook.com
+ * @Date: 2022-10-19 09:55:40
+ * @LastEditors: mengbing mengbingg@outlook.com
+ * @LastEditTime: 2022-10-20 16:35:00
+ * @Descripttion: 
+ */
 import './App.css';
+import IndexRouter from './router/IndexRouter'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <IndexRouter></IndexRouter>
     </div>
   );
 }

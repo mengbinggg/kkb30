@@ -1,4 +1,10 @@
 # react-router 5基本使用
+
+### 安装
+```
+npm i react-router-dom@5 -S
+```
+
 ### 常用组件
 1. 路由连接：Link、NavLink
 	```jsx

@@ -1,0 +1,13 @@
+.sysName {
+    color: #fff;
+    height: 64px;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255,255,255,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.ant-layout-sider-collapsed .sysName {
+    font-size: 12px;
+}

@@ -2,15 +2,15 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-09-01 20:18:43
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-09-11 11:28:13
+ * @LastEditTime: 2022-11-03 13:52:08
  * @Descripttion:
  */
 const initialState = {
-    inpt: "",
+    inpt: "xx",
     list: [],
 };
 
-const reducer = (state = initialState, { type, payload }) => {
+export default (state = initialState, { type, payload }) => {
     switch (type) {
         case "changeInpt":
             return {
@@ -29,9 +29,7 @@ const reducer = (state = initialState, { type, payload }) => {
                 ...state,
                 list,
             };
-
         default:
             return state;
     }
 };
-export default reducer

@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-25 09:55:56
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-08-25 15:10:40
+ * @LastEditTime: 2022-10-31 10:45:44
  * @Descripttion:
  */
 const path = require('path')
@@ -11,7 +11,7 @@ const htmlwebpackplugin = require('html-webpack-plugin') // 直接安装版本�
 module.exports = {
   // 单入口（当entry传入一个字符串时，会自动解析为一个对象，且key为main，value为该字符串）
   // entry: './src/index.js', // 默认路径src/index.js
-  // 多入口（所入口一定对应多出口）
+  // 多入口（多入口一定对应多出口）
   entry: {
     index: './src/index.js',
     login: './src/login.js',

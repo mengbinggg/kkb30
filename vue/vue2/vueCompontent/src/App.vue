@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-02 19:33:44
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-08-12 14:53:58
+ * @LastEditTime: 2022-12-15 16:15:33
  * @Descripttion: 主页面
 -->
 <template>
@@ -82,6 +82,18 @@ export default {
         handleDel({ id }) {
             this.tableData = this.tableData.filter((item = item.id !== id))
         },
+    },
+    beforeCreate() {
+        console.log(this)
+    },
+    created() {
+        console.log(this)
+    },
+    beforeMount() {
+        console.log(this)
+    },
+    mounted() {
+        console.log(this)
     },
 }
 </script>

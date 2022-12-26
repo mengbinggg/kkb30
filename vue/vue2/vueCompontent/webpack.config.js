@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-02 19:41:57
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-08-12 18:01:59
+ * @LastEditTime: 2022-12-15 16:18:11
  * @Descripttion: webpack配置文件
  */
 const path = require('path')
@@ -46,7 +46,7 @@ const config = {
 if (isDev) {
     config.devtool = 'cheap-module-eval-source-map'
     config.devServer = {
-        port: 8081,
+        port: 8091,
         host: '127.0.0.1',
     }
 }

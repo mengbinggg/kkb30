@@ -2,36 +2,28 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-03 10:45:05
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-08-03 19:48:26
+ * @LastEditTime: 2022-11-23 13:40:47
  * @Descripttion:
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import home from '../components/home.vue'
-import list from '../components/list.vue'
+const list = () => import(/* webpackChunkName: "list" */ '../components/list.vue')
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-        component: home,
+        component: home
     },
     {
         path: '/list',
-        component: list,
-        children: [
-            {
-                path: '',
-                component: {
-                    render: (h) => h('div', 'this is info'),
-                },
-            },
-        ],
-    },
+        component: list
+    }
 ]
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     routes,
 })
 

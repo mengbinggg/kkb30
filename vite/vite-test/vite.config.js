@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-12-01 20:48:52
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-12-01 22:02:01
+ * @LastEditTime: 2023-01-31 11:53:20
  * @Descripttion: 
  */
 import { defineConfig, loadEnv } from "vite"
@@ -27,7 +27,7 @@ const envResolve = {
     }
 }
 
-
+得到的
 export default defineConfig(({ mode, command }) => {
     // const env = loadEnv(mode, process.cwd(), '')
     // console.log(env)

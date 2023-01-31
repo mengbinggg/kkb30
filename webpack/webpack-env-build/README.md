@@ -93,4 +93,5 @@
     ```
 
 ## 遇到的问题
-1. file-loader处理图片路径时，配置图片存放位置后，css、js中访问图片路径不对
+1. file-loader/url-loader处理图片路径时，配置图片使用路径(publicPath)，js中插入图片/html中直接引入图片时，访问图片路径不对
+2. 

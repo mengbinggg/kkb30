@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-25 09:55:56
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-10-31 10:45:44
+ * @LastEditTime: 2022-12-29 16:33:01
  * @Descripttion:
  */
 const path = require('path')
@@ -20,7 +20,7 @@ module.exports = {
     path: path.resolve(__dirname, './build'), // 必须时一个绝对路径
     filename: '[name].js', // [name]是一个占位符，对应entry对象的key
   },
-  mode: 'development', // [production/development/none] 指定打包模式，开发模式不会进行压缩
+  mode: 'production', // [production/development/none] 指定打包模式，开发模式不会进行压缩
   // 插件
   plugins: [
     new htmlwebpackplugin({

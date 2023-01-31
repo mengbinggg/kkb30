@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-08-25 17:21:27
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2022-08-26 16:48:03
+ * @LastEditTime: 2023-01-03 15:29:42
  * @Descripttion:
  */
 const path = require('path')
@@ -81,13 +81,19 @@ module.exports = {
           // },
           loader: 'url-loader',
           options: {
-            name: '[name].[ext]', // 图片名称
+            name: '[hash:10].[ext]', // 图片名称
             outputPath: './images', // 图片输出路径
             publicPath: '../images', // 图片使用路径
             limit: 10 * 1024,
+            esModule: false
           },
         },
       },
+      {
+        test: /\.html$/,
+        // 处理html文件的img图片（负责引入img，从而能被url-loader进行处理）
+        loader: 'html-loader'
+      }
     ],
   },
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- iframe -->
+    <div>
+      <h1>主页面</h1>
+      <button id="btn">发送消息</button>
+    </div>
+    <iframe id="iframe" src="http://localhost:8888/" frameborder="0"></iframe>
+
+    <!-- window.open -->
+    <!-- <div>
+      <button id="btn2">打卡新页面</button>
+    </div> -->
+  </body>
+  <script>
+    document.querySelector('#btn').onclick = function () {
+      document
+        .querySelector('#iframe')
+        .contentWindow.postMessage('你好呀', 'http://localhost:8888/')
+    }
+    
+    window.addEventListener('message', function (e) {
+      console.log(e.data)
+    })
+  </script>
+</html>

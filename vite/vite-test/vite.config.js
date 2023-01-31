@@ -2,7 +2,7 @@
  * @Author: mengbing mengbingg@outlook.com
  * @Date: 2022-12-01 20:48:52
  * @LastEditors: mengbing mengbingg@outlook.com
- * @LastEditTime: 2023-01-31 11:53:20
+ * @LastEditTime: 2023-01-31 13:00:06
  * @Descripttion: 
  */
 import { defineConfig, loadEnv } from "vite"
@@ -26,7 +26,14 @@ const envResolve = {
         }
     }
 } 
-
+/**
+* command的值：
+*    - 开发环境下为 serve（在 CLI 中， vite dev 和 vite serve 是 vite 的别名）
+*    - 生产环境下为 build（vite build）
+* mode的值：
+*    - 开发环境下为 development
+*    - 生产环境下为 production
+*/
 export default defineConfig(({ mode, command }) => {
     // const env = loadEnv(mode, process.cwd(), '')
     // console.log(env)

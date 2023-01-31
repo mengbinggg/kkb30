@@ -1,0 +1,26 @@
+<!--
+ * @Author: mengbing mengbingg@outlook.com
+ * @Date: 2023-01-31 15:05:05
+ * @LastEditors: mengbing mengbingg@outlook.com
+ * @LastEditTime: 2023-01-31 16:11:00
+ * @Descripttion: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>我是message</h1>
+  </body>
+  <script>
+    window.addEventListener('message', function (e) {
+      console.log(e.data)
+      top.postMessage('我收到了', 'http://127.0.0.1:9999/')
+    })
+
+  </script>
+</html>

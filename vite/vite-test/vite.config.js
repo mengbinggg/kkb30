@@ -25,9 +25,8 @@ const envResolve = {
             ...prodConfig
         }
     }
-}
+} 
 
-得到的
 export default defineConfig(({ mode, command }) => {
     // const env = loadEnv(mode, process.cwd(), '')
     // console.log(env)
